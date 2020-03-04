@@ -12,9 +12,7 @@ app = Flask(__name__)
 #MONGODB_URI = os.environ.get("MONGO_URI")
 
 app.config['MONGO_DBNAME'] = 'task_manager'
-app.config["MONGO_URI"] = MONGO_URI
-
-
+app.config["MONGO_URI"] = os.getenv.("MONGO_URI")
 
 
 mongo = PyMongo(app)
