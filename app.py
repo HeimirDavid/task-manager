@@ -9,10 +9,10 @@ if path.exists("env.py"):
 
 app = Flask(__name__)
 
-#MONGODB_URI = os.environ.get("MONGO_URI")
+MONGO_URI = os.environ.get("MONGO_URI")
 
 app.config['MONGO_DBNAME'] = 'task_manager'
-app.config["MONGO_URI"] = "mongodb+srv://root:UserR00t@myfirstcluster-qce1p.mongodb.net/task_manager?retryWrites=true&w=majority"
+app.config["MONGO_URI"] = MONGO_URI
 
 
 mongo = PyMongo(app)
