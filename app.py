@@ -9,9 +9,12 @@ if path.exists("env.py"):
 
 app = Flask(__name__)
 
+#MONGODB_URI = os.environ.get("MONGO_URI")
 
 app.config['MONGO_DBNAME'] = 'task_manager'
-app.config["MONGO_URI"] = os.getenv("MONGO_URI")
+app.config["MONGO_URI"] = MONGO_URI
+
+
 
 
 mongo = PyMongo(app)
@@ -80,12 +83,13 @@ def delete_category(category_id):
 @app.route('/edit_category/<category_id>')
 def edit_category(category_id):
     return render_template('editcategory.html',
-    category=mongo.db.categories.find_one({'id_': ObjectId(category_id)}))
+    category=mongo.db.categories.find_one({'_id': ObjectId(category_id)}))
 
 
 @app.route('/update_category/<category_id>', methods=['POST'])
 def update_category(category_id):
-    mongo.db.categories.update(
+    categories = mongo.db.categories
+    categories.update(
         {'_id': ObjectId(category_id)},
         {'category_name': request.form.get('category_name')})
     return redirect(url_for('get_categories'))
